@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>France Intel</title>
+  <meta name="description" content="Sharp takes & fast facts on all things French" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bleu: #002395;
+      --rouge: #ED2939;
+      --blanc: #FFFFFF;
+      --dark: #080c14;
+      --dark2: #0d1220;
+      --card: rgba(255,255,255,0.04);
+      --card-hover: rgba(255,255,255,0.08);
+      --border: rgba(255,255,255,0.08);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--dark);
+      color: var(--blanc);
+      font-family: 'Barlow', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow-x: hidden;
+    }
+
+    /* === BACKGROUND === */
+    .bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .bg::before {
+      content: '';
+      position: absolute;
+      top: -200px; left: 50%;
+      transform: translateX(-50%);
+      width: 900px; height: 600px;
+      background: radial-gradient(ellipse at center, rgba(0,35,149,0.25) 0%, transparent 70%);
+    }
+    .bg::after {
+      content: '';
+      position: absolute;
+      bottom: -100px; left: 50%;
+      transform: translateX(-50%);
+      width: 700px; height: 400px;
+      background: radial-gradient(ellipse at center, rgba(237,41,57,0.15) 0%, transparent 70%);
+    }
+
+    /* Grid lines */
+    .grid-lines {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    /* === TICKER === */
+    .ticker-wrap {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: var(--bleu);
+      height: 32px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      border-bottom: 2px solid rgba(255,255,255,0.15);
+    }
+    .ticker-label {
+      background: var(--rouge);
+      color: white;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 13px;
+      letter-spacing: 1.5px;
+      padding: 0 14px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+      z-index: 2;
+    }
+    .ticker-track {
+      display: flex;
+      animation: ticker 30s linear infinite;
+      white-space: nowrap;
+    }
+    .ticker-track span {
+      font-family: 'Barlow', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      padding: 0 40px;
+      opacity: 0.9;
+    }
+    .ticker-track span::before {
+      content: '● ';
+      color: rgba(255,255,255,0.5);
+      margin-right: 6px;
+    }
+    @keyframes ticker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* === TRICOLOR BAR === */
+    .tricolor {
+      position: fixed;
+      top: 32px; left: 0; right: 0;
+      height: 3px;
+      z-index: 99;
+      display: flex;
+    }
+    .tricolor div { flex: 1; }
+    .tricolor .b { background: var(--bleu); }
+    .tricolor .w { background: var(--blanc); }
+    .tricolor .r { background: var(--rouge); }
+
+    /* === MAIN CONTENT === */
+    .container {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 480px;
+      padding: 120px 20px 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+
+    /* === LOGO / HEADER === */
+    .logo-wrap {
+      position: relative;
+      margin-bottom: 28px;
+      animation: fadeDown 0.7s ease both;
+    }
+    .logo-wrap img {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid rgba(255,255,255,0.12);
+      display: block;
+    }
+    .logo-ring {
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      background: conic-gradient(var(--bleu) 0deg 120deg, var(--blanc) 120deg 240deg, var(--rouge) 240deg 360deg);
+      z-index: -1;
+      animation: spin 8s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .brand-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 38px;
+      letter-spacing: 3px;
+      text-align: center;
+      line-height: 1;
+      animation: fadeDown 0.7s 0.1s ease both;
+    }
+    .brand-name .france { color: var(--blanc); }
+    .brand-name .intel {
+      color: var(--rouge);
+      background: var(--rouge);
+      color: white;
+      padding: 0 6px;
+      margin-left: 6px;
+    }
+
+    .tagline {
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-align: center;
+      margin-top: 10px;
+      margin-bottom: 36px;
+      animation: fadeDown 0.7s 0.2s ease both;
+    }
+
+    /* === LINKS === */
+    .links {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .link-btn {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 20px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      text-decoration: none;
+      color: white;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      transition: background 0.2s, border-color 0.2s, transform 0.15s;
+      position: relative;
+      overflow: hidden;
+      animation: fadeUp 0.6s ease both;
+    }
+    .link-btn:nth-child(1) { animation-delay: 0.3s; }
+    .link-btn:nth-child(2) { animation-delay: 0.38s; }
+    .link-btn:nth-child(3) { animation-delay: 0.46s; }
+    .link-btn:nth-child(4) { animation-delay: 0.54s; }
+    .link-btn:nth-child(5) { animation-delay: 0.62s; }
+    .link-btn:nth-child(6) { animation-delay: 0.70s; }
+
+    .link-btn::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--accent, var(--bleu));
+      border-radius: 10px 0 0 10px;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .link-btn:hover {
+      background: var(--card-hover);
+      border-color: rgba(255,255,255,0.15);
+      transform: translateX(4px);
+    }
+    .link-btn:hover::before { opacity: 1; }
+
+    .link-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 18px;
+      background: rgba(255,255,255,0.07);
+    }
+
+    .link-text { flex: 1; }
+    .link-label { display: block; font-size: 15px; font-weight: 600; }
+    .link-sub { display: block; font-size: 12px; color: rgba(255,255,255,0.4); font-weight: 400; margin-top: 1px; }
+
+    .link-arrow {
+      font-size: 16px;
+      color: rgba(255,255,255,0.25);
+      transition: color 0.2s, transform 0.2s;
+    }
+    .link-btn:hover .link-arrow {
+      color: rgba(255,255,255,0.6);
+      transform: translateX(3px);
+    }
+
+    /* === SEPARATOR === */
+    .sep {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 8px 0;
+      animation: fadeUp 0.6s 0.65s ease both;
+    }
+    .sep-line { flex: 1; height: 1px; background: var(--border); }
+    .sep-text { font-size: 11px; color: rgba(255,255,255,0.2); letter-spacing: 2px; text-transform: uppercase; }
+
+    /* === SUPPORT BUTTON (Buy me a coffee) === */
+    .btn-support {
+      --accent: #FFDD57;
+    }
+    .btn-support .link-icon { background: rgba(255,221,87,0.12); }
+
+    /* === FOOTER === */
+    .footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 11px;
+      color: rgba(255,255,255,0.18);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      animation: fadeUp 0.6s 0.8s ease both;
+    }
+    .footer span { color: var(--rouge); }
+
+    /* === ANIMATIONS === */
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* SVG Icons */
+    svg { display: block; }
+  </style>
+</head>
+<body>
+
+  <!-- Background -->
+  <div class="bg"></div>
+  <div class="grid-lines"></div>
+
+  <!-- Tricolor bar -->
+  <div class="tricolor">
+    <div class="b"></div>
+    <div class="w"></div>
+    <div class="r"></div>
+  </div>
+
+  <!-- Ticker -->
+  <div class="ticker-wrap">
+    <div class="ticker-label">FRANCE INTEL</div>
+    <div class="ticker-track">
+      <span>Géopolitique</span>
+      <span>Actualité Française</span>
+      <span>Analyse & Décryptage</span>
+      <span>Sharp Takes</span>
+      <span>Fast Facts</span>
+      <span>Géopolitique</span>
+      <span>Actualité Française</span>
+      <span>Analyse & Décryptage</span>
+      <span>Sharp Takes</span>
+      <span>Fast Facts</span>
+    </div>
+  </div>
+
+  <!-- Main -->
+  <div class="container">
+
+    <!-- Logo -->
+    <div class="logo-wrap">
+      <div class="logo-ring"></div>
+      <img src="IMG_3744.jpeg" alt="France Intel" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'" />
+      <div style="display:none; width:130px; height:130px; border-radius:50%; background:var(--bleu); align-items:center; justify-content:center; font-family:'Bebas Neue',sans-serif; font-size:28px; letter-spacing:2px;">FI</div>
+    </div>
+
+    <div class="brand-name">
+      <span class="france">France</span><span class="intel">Intel</span>
+    </div>
+    <div class="tagline">Sharp takes & fast facts on all things French</div>
+
+    <!-- Links -->
+    <div class="links">
+
+      <!-- X / Twitter -->
+      <a href="https://x.com/franceintel" target="_blank" rel="noopener" class="link-btn" style="--accent:#1D9BF0;">
+        <div class="link-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.91-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </div>
+        <div class="link-text">
+          <span class="link-label">X (Twitter)</span>
+          <span class="link-sub">@franceintel</span>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+
+      <!-- Instagram -->
+      <a href="https://www.instagram.com/franceintel" target="_blank" rel="noopener" class="link-btn" style="--accent:#E1306C;">
+        <div class="link-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        </div>
+        <div class="link-text">
+          <span class="link-label">Instagram</span>
+          <span class="link-sub">@franceintel</span>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+
+      <!-- Threads -->
+      <a href="https://www.threads.com/@franceintel" target="_blank" rel="noopener" class="link-btn" style="--accent:#ffffff;">
+        <div class="link-icon">
+          <svg width="20" height="20" viewBox="0 0 192 192" fill="white"><path d="M141.537 88.988a66.667 66.667 0 00-2.518-1.143c-1.482-27.307-16.403-42.94-41.457-43.1h-.34c-14.986 0-27.449 6.396-35.12 18.036l13.779 9.452c5.73-8.695 14.724-10.548 21.348-10.548h.23c8.249.053 14.474 2.452 18.503 7.129 2.932 3.405 4.893 8.111 5.864 14.05-7.314-1.243-15.224-1.626-23.68-1.14-23.82 1.371-39.134 15.264-38.105 34.568.522 9.792 5.4 18.216 13.735 23.719 7.047 4.652 16.124 6.927 25.557 6.412 12.458-.683 22.231-5.436 29.049-14.127 5.178-6.6 8.453-15.153 9.899-25.93 5.937 3.583 10.337 8.298 12.767 13.966 4.132 9.635 4.373 25.468-8.546 38.376-11.319 11.308-24.925 16.2-45.488 16.351-22.809-.169-40.06-7.484-51.275-21.742C35.236 139.966 29.808 120.682 29.605 96c.203-24.682 5.63-43.966 16.133-57.317C56.954 24.425 74.205 17.11 97.014 16.94c22.975.17 40.526 7.52 52.171 21.847 5.71 7.026 10.015 15.86 12.853 26.162l16.147-4.308c-3.44-12.68-8.853-23.606-16.219-32.668C147.036 9.607 125.202.195 97.26 0h-.464C69.026.195 47.36 9.638 32.8 28.08 19.894 44.487 13.2 67.315 13 96c.2 28.685 6.894 51.513 19.8 67.92C47.36 182.362 69.026 191.805 96.796 192h.464c24.986-.18 42.437-6.713 56.84-21.113 18.92-18.904 18.345-42.521 12.124-57.029-4.509-10.507-13.205-19.005-24.687-24.87zM98.44 129.507c-10.44.588-21.286-4.098-21.82-14.135-.397-7.442 5.296-15.746 22.461-16.735 1.966-.114 3.895-.169 5.79-.169 6.235 0 12.068.606 17.371 1.765-1.978 24.702-13.58 28.713-23.802 29.274z"/></svg>
+        </div>
+        <div class="link-text">
+          <span class="link-label">Threads</span>
+          <span class="link-sub">@franceintel</span>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+
+      <!-- TikTok -->
+      <a href="https://www.tiktok.com/@franceintel" target="_blank" rel="noopener" class="link-btn" style="--accent:#ff0050;">
+        <div class="link-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.73a4.85 4.85 0 01-1.01-.04z"/></svg>
+        </div>
+        <div class="link-text">
+          <span class="link-label">TikTok</span>
+          <span class="link-sub">@franceintel</span>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+
+      <!-- Telegram -->
+      <a href="https://t.me/franceintel" target="_blank" rel="noopener" class="link-btn" style="--accent:#29b6f6;">
+        <div class="link-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0a12 12 0 00-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+        </div>
+        <div class="link-text">
+          <span class="link-label">Telegram</span>
+          <span class="link-sub">Rejoins le canal</span>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+
+      <!-- Separator -->
+      <div class="sep">
+        <div class="sep-line"></div>
+        <div class="sep-text">Soutenir</div>
+        <div class="sep-line"></div>
+      </div>
+
+      <!-- Buy me a coffee -->
+      <a href="https://buymeacoffee.com/franceintel" target="_blank" rel="noopener" class="link-btn btn-support" style="--accent:#FFDD57;">
+        <div class="link-icon">☕</div>
+        <div class="link-text">
+          <span class="link-label">Buy me a coffee</span>
+          <span class="link-sub">Soutiens France Intel</span>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      © 2025 <span>France Intel</span> · Tous droits réservés
+    </div>
+
+  </div>
+
+</body>
+</html>
