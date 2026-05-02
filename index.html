@@ -401,18 +401,18 @@
       height: 4px;
       background: #fff;
       border-radius: 50%;
-      /* Multi-layered glow for a more magical feel */
+      /* Much more intense multi-layered glow */
       box-shadow: 
-        0 0 4px #fff,
-        0 0 10px #fff,
-        0 0 20px rgba(255,255,255,0.8),
-        0 0 40px rgba(255,255,255,0.4);
+        0 0 6px 2px #fff,
+        0 0 15px 4px #fff,
+        0 0 30px 10px rgba(255,255,255,0.9),
+        0 0 50px 15px rgba(255,255,255,0.5),
+        -10px 0 20px 5px rgba(255,255,255,0.4); /* Stronger trail direction */
       top: 0;
       left: 0;
-      /* Tighter arc that stays closer to the image top */
       offset-path: path("M 20,120 C 60,-20 380,-20 420,120");
       offset-distance: 0%;
-      animation: disneyStar 6s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+      animation: disneyStar 6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
       opacity: 0;
     }
     @keyframes disneyStar {
@@ -421,14 +421,17 @@
         opacity: 0;
         transform: scale(0.2);
       }
-      10% {
+      5% {
         opacity: 1;
-        transform: scale(1);
+        transform: scale(1.5); /* Pop in larger */
       }
-      30% {
+      22% { /* Disappear a bit earlier (was 30%) */
+        opacity: 1;
+      }
+      25% {
         offset-distance: 100%;
         opacity: 0;
-        transform: scale(0.5);
+        transform: scale(0.3);
       }
       100% {
         offset-distance: 100%;
