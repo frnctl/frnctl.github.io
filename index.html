@@ -397,22 +397,40 @@
     .hero-orbit::before {
       content: '';
       position: absolute;
-      width: 10px;
-      height: 10px;
+      width: 8px;
+      height: 8px;
       background: white;
       border-radius: 50%;
-      box-shadow: 0 0 12px 4px rgba(255,255,255,0.7), 0 0 30px 8px rgba(255,255,255,0.3);
-      top: -5px;
-      left: 50%;
-      offset-path: path("M 0,0 H var(--w) V var(--h) H 0 Z");
-      animation: orbitHero 6s linear infinite;
+      box-shadow: 
+        0 0 10px 2px rgba(255,255,255,0.8), 
+        0 0 20px 6px rgba(255,255,255,0.4),
+        -5px 0 15px 2px rgba(255,255,255,0.3); /* Slight trail */
+      top: 0;
+      left: 0;
+      offset-path: path("M -10,80 Q 50,-20 110,80"); /* Arc path */
+      offset-distance: 0%;
+      animation: shootingStar 8s ease-in-out infinite;
+      opacity: 0;
     }
-    @keyframes orbitHero {
-      0%   { top: -5px;  left: 50%;          }
-      25%  { top: 50%;   left: calc(100% + 2px); }
-      50%  { top: calc(100% + 2px); left: 50%; }
-      75%  { top: 50%;   left: -5px;          }
-      100% { top: -5px;  left: 50%;          }
+    @keyframes shootingStar {
+      0% { 
+        offset-distance: 0%; 
+        opacity: 0;
+        transform: scale(0.5);
+      }
+      5% {
+        opacity: 1;
+        transform: scale(1.2);
+      }
+      20% {
+        offset-distance: 100%;
+        opacity: 0;
+        transform: scale(0.8);
+      }
+      100% {
+        offset-distance: 100%;
+        opacity: 0;
+      }
     }
 
     .hero-cta a:last-child:hover {
