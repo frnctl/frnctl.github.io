@@ -397,35 +397,38 @@
     .hero-orbit::before {
       content: '';
       position: absolute;
-      width: 8px;
-      height: 8px;
-      background: white;
+      width: 4px;
+      height: 4px;
+      background: #fff;
       border-radius: 50%;
+      /* Multi-layered glow for a more magical feel */
       box-shadow: 
-        0 0 10px 2px rgba(255,255,255,0.8), 
-        0 0 20px 6px rgba(255,255,255,0.4),
-        -5px 0 15px 2px rgba(255,255,255,0.3); /* Slight trail */
+        0 0 4px #fff,
+        0 0 10px #fff,
+        0 0 20px rgba(255,255,255,0.8),
+        0 0 40px rgba(255,255,255,0.4);
       top: 0;
       left: 0;
-      offset-path: path("M -10,80 Q 50,-20 110,80"); /* Arc path */
+      /* Tighter arc that stays closer to the image top */
+      offset-path: path("M 20,120 C 60,-20 380,-20 420,120");
       offset-distance: 0%;
-      animation: shootingStar 8s ease-in-out infinite;
+      animation: disneyStar 6s cubic-bezier(0.45, 0, 0.55, 1) infinite;
       opacity: 0;
     }
-    @keyframes shootingStar {
+    @keyframes disneyStar {
       0% { 
         offset-distance: 0%; 
         opacity: 0;
-        transform: scale(0.5);
+        transform: scale(0.2);
       }
-      5% {
+      10% {
         opacity: 1;
-        transform: scale(1.2);
+        transform: scale(1);
       }
-      20% {
+      30% {
         offset-distance: 100%;
         opacity: 0;
-        transform: scale(0.8);
+        transform: scale(0.5);
       }
       100% {
         offset-distance: 100%;
