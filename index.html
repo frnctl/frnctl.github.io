@@ -400,62 +400,88 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at 50% 30%, rgba(255,255,255,0.2) 0%, transparent 50%);
+      background: radial-gradient(circle at 50% 20%, rgba(255,255,255,0.25) 0%, transparent 60%);
       opacity: 0;
       z-index: 5;
       pointer-events: none;
-      mix-blend-mode: overlay;
-      animation: starReflection 5s ease-in-out infinite;
+      mix-blend-mode: screen;
+      animation: starReflection 10s ease-in-out infinite;
     }
 
     .hero-orbit::before {
       content: '';
       position: absolute;
-      width: 5px;
-      height: 5px;
+      width: 4px;
+      height: 4px;
       background: #fff;
       border-radius: 50%;
-      /* Massive Modern Glow */
+      /* Multi-layered cinematic glow */
       box-shadow: 
-        0 0 10px 2px #fff,
-        0 0 25px 8px #fff,
-        0 0 50px 15px rgba(255,255,255,0.9),
-        0 0 100px 30px rgba(255,255,255,0.4),
-        0 0 150px 50px rgba(255,255,255,0.2);
+        0 0 10px #fff,
+        0 0 20px #fff,
+        0 0 40px rgba(255,255,255,0.8),
+        0 0 80px rgba(255,255,255,0.4),
+        0 0 120px rgba(255,255,255,0.2);
       top: 0;
       left: 0;
-      /* Higher start (90 instead of 130) */
-      offset-path: path("M 20,90 C 60,-30 380,-30 420,90");
+      /* Elegant, wide arc */
+      offset-path: path("M 10,110 C 50,-50 390,-50 430,110");
       offset-distance: 0%;
-      /* Shorter cycle (5s) */
-      animation: disneyStar 5s cubic-bezier(0.3, 0, 0.4, 1) infinite;
+      /* Slower cycle for majesty (10s) */
+      animation: disneyStar 10s cubic-bezier(0.4, 0, 0.2, 1) infinite;
       opacity: 0;
     }
 
+    /* Shimmer effect for the star core */
+    .hero-orbit::after {
+      content: '';
+      position: absolute;
+      width: 100px;
+      height: 2px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.8), transparent);
+      z-index: 19;
+      pointer-events: none;
+      top: 0;
+      left: 0;
+      offset-path: path("M 10,110 C 50,-50 390,-50 430,110");
+      offset-distance: 0%;
+      animation: starTrail 10s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+      opacity: 0;
+      transform-origin: left center;
+    }
+
     @keyframes starReflection {
-      0%, 5% { opacity: 0; }
-      12%, 20% { opacity: 1; }
-      30%, 100% { opacity: 0; }
+      0%, 8% { opacity: 0; filter: blur(20px); }
+      15%, 30% { opacity: 1; filter: blur(0px); }
+      45%, 100% { opacity: 0; filter: blur(20px); }
+    }
+
+    @keyframes starTrail {
+      0%, 8% { opacity: 0; offset-distance: 0%; }
+      15% { opacity: 0.6; }
+      40% { opacity: 0; offset-distance: 100%; }
+      100% { offset-distance: 100%; opacity: 0; }
     }
 
     @keyframes disneyStar {
       0% { 
         offset-distance: 0%; 
         opacity: 0;
-        transform: scale(0.1);
-      }
-      8% { 
-        opacity: 1;
-        transform: scale(1.4);
-      }
-      18% { 
-        opacity: 1;
-        transform: scale(1);
-      }
-      25% { /* Disappear much earlier */
-        offset-distance: 100%;
-        opacity: 0;
         transform: scale(0.2);
+      }
+      12% { /* Gentle entrance */
+        opacity: 1;
+        transform: scale(1.5);
+      }
+      25% { /* Peak brilliance */
+        opacity: 1;
+        transform: scale(1.2);
+        filter: brightness(1.5);
+      }
+      40% { /* Fade out gracefully */
+        offset-distance: 80%;
+        opacity: 0;
+        transform: scale(0.5);
       }
       100% {
         offset-distance: 100%;
