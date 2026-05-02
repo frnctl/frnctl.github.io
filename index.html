@@ -394,44 +394,67 @@
       z-index: 20;
       pointer-events: none;
     }
+    
+    /* Dynamic Reflection on the image */
+    .hero-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at var(--star-x, 50%) var(--star-y, 50%), rgba(255,255,255,0.15) 0%, transparent 40%);
+      opacity: 0;
+      z-index: 5;
+      pointer-events: none;
+      mix-blend-mode: overlay;
+      animation: starReflection 8s ease-in-out infinite;
+    }
+
     .hero-orbit::before {
       content: '';
       position: absolute;
-      width: 4px;
-      height: 4px;
+      width: 5px;
+      height: 5px;
       background: #fff;
       border-radius: 50%;
-      /* Much more intense multi-layered glow */
+      /* Massive Modern Glow */
       box-shadow: 
-        0 0 6px 2px #fff,
-        0 0 15px 4px #fff,
-        0 0 30px 10px rgba(255,255,255,0.9),
-        0 0 50px 15px rgba(255,255,255,0.5),
-        -10px 0 20px 5px rgba(255,255,255,0.4); /* Stronger trail direction */
+        0 0 10px 2px #fff,
+        0 0 25px 8px #fff,
+        0 0 50px 15px rgba(255,255,255,0.9),
+        0 0 100px 30px rgba(255,255,255,0.4),
+        0 0 150px 50px rgba(255,255,255,0.2);
       top: 0;
       left: 0;
-      offset-path: path("M 20,120 C 60,-20 380,-20 420,120");
+      offset-path: path("M 20,130 C 60,-30 380,-30 420,130");
       offset-distance: 0%;
-      animation: disneyStar 6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+      /* Slower appearance, faster exit */
+      animation: disneyStar 8s cubic-bezier(0.3, 0, 0.4, 1) infinite;
       opacity: 0;
     }
+
+    @keyframes starReflection {
+      0%, 5% { opacity: 0; }
+      15%, 25% { opacity: 1; }
+      40%, 100% { opacity: 0; }
+    }
+
     @keyframes disneyStar {
       0% { 
         offset-distance: 0%; 
         opacity: 0;
-        transform: scale(0.2);
+        transform: scale(0.1);
       }
-      5% {
+      15% { /* Slower entrance */
         opacity: 1;
-        transform: scale(1.5); /* Pop in larger */
+        transform: scale(1.4);
       }
-      22% { /* Disappear a bit earlier (was 30%) */
+      35% { /* Hold peak brightness a bit longer */
         opacity: 1;
+        transform: scale(1);
       }
-      25% {
+      45% { /* Disappear faster after peak */
         offset-distance: 100%;
         opacity: 0;
-        transform: scale(0.3);
+        transform: scale(0.2);
       }
       100% {
         offset-distance: 100%;
