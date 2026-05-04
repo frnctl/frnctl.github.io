@@ -501,10 +501,10 @@
       border: 1.5px solid rgba(0,255,102,0.3);
       animation: fadeUp 0.7s ease 0.35s both, eurionBorderPulse 3s ease-in-out infinite;
     }
-    .eurion-wrap img {
+    .eurion-wrap img,
+    .eurion-wrap svg {
       width: 100%;
       display: block;
-      object-fit: cover;
       max-height: 220px;
     }
     .eurion-overlay {
@@ -723,7 +723,63 @@
     <div class="eurion-cta" style="margin-top: 24px; position: relative;">
       <a href="https://FranceIntel.fr/business" target="_blank" rel="noopener" class="eurion-wrap" style="margin-bottom: 0; display: block; text-decoration: none; position: relative;">
         <div class="eurion-ring"></div>
-        <img src="eurion.jpg" alt="Eurion — Plateforme de trading" />
+        <svg viewBox="0 0 900 280" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;">
+          <defs>
+            <radialGradient id="euBg" cx="26%" cy="50%" r="65%">
+              <stop offset="0%" stop-color="#0c2619"/>
+              <stop offset="100%" stop-color="#020c05"/>
+            </radialGradient>
+            <linearGradient id="euArc" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#00ffaa"/>
+              <stop offset="100%" stop-color="#008844"/>
+            </linearGradient>
+            <filter id="euG" x="-100%" y="-100%" width="300%" height="300%">
+              <feGaussianBlur stdDeviation="6" result="b"/>
+              <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <filter id="euGs" x="-60%" y="-60%" width="220%" height="220%">
+              <feGaussianBlur stdDeviation="3" result="b"/>
+              <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+          <rect width="900" height="280" fill="url(#euBg)"/>
+          <!-- Orbital system -->
+          <g transform="translate(200,140)">
+            <ellipse rx="115" ry="35" fill="none" stroke="rgba(0,210,100,0.32)" stroke-width="1.1" stroke-dasharray="5 3.5" transform="rotate(-28)"/>
+            <ellipse rx="115" ry="35" fill="none" stroke="rgba(0,210,100,0.32)" stroke-width="1.1" stroke-dasharray="5 3.5" transform="rotate(28)"/>
+            <ellipse rx="80" ry="24" fill="none" stroke="rgba(0,160,70,0.2)" stroke-width="0.8" stroke-dasharray="3 3.5" transform="rotate(-28)"/>
+            <!-- Glowing dots -->
+            <circle cx="5" cy="-108" r="5.5" fill="#00ff88" filter="url(#euG)"/>
+            <circle cx="5" cy="-108" r="2" fill="white"/>
+            <circle cx="108" cy="58" r="4.5" fill="#00ff88" filter="url(#euG)"/>
+            <circle cx="108" cy="58" r="1.8" fill="white"/>
+            <!-- Accent line to right -->
+            <line x1="108" y1="58" x2="210" y2="82" stroke="rgba(0,255,136,0.35)" stroke-width="0.8"/>
+            <!-- Outer C arc -->
+            <path d="M 32,-75 A 85,85 0 1,0 32,75" fill="none" stroke="url(#euArc)" stroke-width="13" stroke-linecap="round" filter="url(#euGs)"/>
+            <!-- Inner C arc -->
+            <path d="M 18,-52 A 58,58 0 1,0 18,52" fill="none" stroke="#00bb66" stroke-width="9" stroke-linecap="round" opacity="0.8"/>
+            <!-- Candlestick bars -->
+            <g filter="url(#euGs)">
+              <line x1="-8" y1="-34" x2="-8" y2="34" stroke="#003319" stroke-width="1.5"/>
+              <rect x="-12" y="-22" width="8" height="28" fill="#00aa55" rx="1.5"/>
+              <line x1="4" y1="-40" x2="4" y2="40" stroke="#003319" stroke-width="1.5"/>
+              <rect x="0" y="-26" width="8" height="20" fill="#00cc66" rx="1.5"/>
+              <line x1="16" y1="-36" x2="16" y2="36" stroke="#003319" stroke-width="1.5"/>
+              <rect x="12" y="-20" width="8" height="32" fill="#009944" rx="1.5"/>
+              <line x1="28" y1="-28" x2="28" y2="28" stroke="#003319" stroke-width="1.5"/>
+              <rect x="24" y="-16" width="8" height="22" fill="#00bb55" rx="1.5"/>
+            </g>
+          </g>
+          <!-- EURION text -->
+          <text x="368" y="180" font-family="'Arial Black',Impact,Arial,sans-serif" font-size="108" font-weight="900" fill="white" letter-spacing="2">EURIO</text>
+          <text x="756" y="180" font-family="'Arial Black',Impact,Arial,sans-serif" font-size="108" font-weight="900" fill="white" letter-spacing="2">N</text>
+          <!-- Green dot in O -->
+          <circle cx="718" cy="130" r="11" fill="#00ff55" filter="url(#euG)"/>
+          <!-- Bottom line + dot -->
+          <line x1="363" y1="228" x2="876" y2="228" stroke="#00ff88" stroke-width="1.8" opacity="0.45" filter="url(#euGs)"/>
+          <circle cx="665" cy="228" r="5.5" fill="#00ff88" filter="url(#euG)"/>
+        </svg>
         <div class="eurion-overlay"></div>
         <div class="eurion-scan"></div>
       </a>
