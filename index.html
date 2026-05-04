@@ -406,36 +406,59 @@
       z-index: 5;
       pointer-events: none;
       mix-blend-mode: screen;
-      animation: starReflection 10s ease-in-out infinite;
+      animation: starReflection 9s ease-in-out infinite;
     }
 
+    /* Noyau de la comète */
     .hero-orbit::before {
       content: '';
       position: absolute;
-      width: 6px;
-      height: 6px;
+      width: 5px;
+      height: 5px;
       background: #fff;
       border-radius: 50%;
       box-shadow:
-        /* Core glow */
-        0 0 6px #fff,
-        0 0 14px #fff,
-        0 0 28px rgba(180,220,255,1),
-        0 0 55px rgba(100,180,255,0.7),
-        /* Trail baked into box-shadow — negative X = derrière l'étoile (offset-rotate: auto) */
-        -12px 0 4px rgba(255,255,255,0.88),
-        -28px 0 5px rgba(255,255,255,0.68),
-        -52px 0 7px rgba(200,230,255,0.48),
-        -85px 0 8px rgba(180,210,255,0.3),
-        -130px 0 10px rgba(150,200,255,0.16),
-        -180px 0 12px rgba(120,180,255,0.08),
-        -230px 0 14px rgba(100,160,255,0.04);
+        /* Cœur brûlant */
+        0 0 4px #fff,
+        0 0 10px #fff,
+        0 0 20px rgba(210,238,255,1),
+        0 0 40px rgba(160,215,255,0.9),
+        /* Traînée ionisée blanc → bleu → violet (offset-rotate:auto = -X toujours derrière) */
+        -6px  0  3px rgba(255,255,255,0.97),
+        -15px 0  4px rgba(240,250,255,0.88),
+        -28px 0  4px rgba(210,238,255,0.74),
+        -46px 0  5px rgba(175,218,255,0.57),
+        -72px 0  6px rgba(140,198,255,0.40),
+        -108px 0 7px rgba(110,168,252,0.25),
+        -154px 0 9px rgba(88,135,240,0.14),
+        -208px 0 11px rgba(74,108,222,0.08),
+        -268px 0 13px rgba(64,88,200,0.04),
+        -330px 0 15px rgba(55,70,180,0.02);
       top: 0;
       left: 0;
       offset-path: path("M 10,110 C 50,-50 390,-50 430,110");
       offset-distance: 0%;
-      animation: disneyStar 10s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+      animation: disneyStar 9s cubic-bezier(0.4, 0, 0.2, 1) infinite;
       opacity: 0;
+    }
+
+    /* Coma — halo doux, même animation = sync parfait garanti */
+    .hero-orbit::after {
+      content: '';
+      position: absolute;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(160,218,255,0.16) 0%, rgba(110,175,255,0.05) 55%, transparent 75%);
+      top: 0;
+      left: 0;
+      offset-path: path("M 10,110 C 50,-50 390,-50 430,110");
+      offset-distance: 0%;
+      animation: disneyStar 9s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+      opacity: 0;
+      filter: blur(7px);
+      z-index: 18;
+      pointer-events: none;
     }
 
     @keyframes starReflection {
@@ -445,29 +468,16 @@
     }
 
     @keyframes disneyStar {
-      0% {
-        offset-distance: 0%;
-        opacity: 0;
-        transform: scale(0.3);
-      }
-      10% {
-        opacity: 1;
-        transform: scale(1.5);
-      }
-      22% {
-        opacity: 1;
-        transform: scale(1.1);
-        filter: brightness(2);
-      }
-      40% {
-        offset-distance: 100%;
-        opacity: 0;
-        transform: scale(0.4);
-      }
-      100% {
-        offset-distance: 100%;
-        opacity: 0;
-      }
+      0%   { offset-distance: 0%;   opacity: 0; transform: scale(0);   }
+      8%   { offset-distance: 8%;   opacity: 0; transform: scale(0);   }
+      /* Ignition flash — apparition brutale */
+      11%  { opacity: 1; transform: scale(2.8); filter: brightness(4); }
+      17%  { opacity: 1; transform: scale(1.5); filter: brightness(2.2); }
+      /* Traversée en pleine puissance */
+      26%  { opacity: 1; transform: scale(1.15); filter: brightness(1.6); }
+      /* Extinction progressive */
+      38%  { offset-distance: 100%; opacity: 0; transform: scale(0.4); filter: brightness(1); }
+      100% { offset-distance: 100%; opacity: 0; }
     }
 
     .hero-cta a:last-child:hover {
