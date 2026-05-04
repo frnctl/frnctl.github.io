@@ -393,8 +393,9 @@
       border: 1px solid rgba(255,255,255,0.08);
       z-index: 20;
       pointer-events: none;
+      filter: drop-shadow(0 0 8px rgba(180,220,255,0.6));
     }
-    
+
     /* Dynamic Reflection on the image */
     .hero-wrap::after {
       content: '';
@@ -411,43 +412,41 @@
     .hero-orbit::before {
       content: '';
       position: absolute;
-      width: 4px;
-      height: 4px;
+      width: 6px;
+      height: 6px;
       background: #fff;
       border-radius: 50%;
-      /* Multi-layered cinematic glow */
-      box-shadow: 
+      box-shadow:
         0 0 10px #fff,
         0 0 20px #fff,
-        0 0 40px rgba(255,255,255,0.8),
-        0 0 80px rgba(255,255,255,0.4),
-        0 0 120px rgba(255,255,255,0.2);
+        0 0 40px rgba(255,255,255,0.9),
+        0 0 60px rgba(180,220,255,0.9),
+        0 0 100px rgba(100,180,255,0.5),
+        0 0 160px rgba(100,180,255,0.2);
       top: 0;
       left: 0;
-      /* Elegant, wide arc */
       offset-path: path("M 10,110 C 50,-50 390,-50 430,110");
       offset-distance: 0%;
-      /* Slower cycle for majesty (10s) */
       animation: disneyStar 10s cubic-bezier(0.4, 0, 0.2, 1) infinite;
       opacity: 0;
     }
 
-    /* Shimmer effect for the star core */
     .hero-orbit::after {
       content: '';
       position: absolute;
-      width: 100px;
-      height: 2px;
-      background: linear-gradient(90deg, rgba(255,255,255,0.8), transparent);
+      width: 160px;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.9));
       z-index: 19;
       pointer-events: none;
       top: 0;
       left: 0;
       offset-path: path("M 10,110 C 50,-50 390,-50 430,110");
       offset-distance: 0%;
+      offset-anchor: 100% 50%;
       animation: starTrail 10s cubic-bezier(0.4, 0, 0.2, 1) infinite;
       opacity: 0;
-      transform-origin: left center;
+      filter: blur(0.5px);
     }
 
     @keyframes starReflection {
@@ -457,31 +456,31 @@
     }
 
     @keyframes starTrail {
-      0%, 8% { opacity: 0; offset-distance: 0%; }
-      15% { opacity: 0.6; }
-      40% { opacity: 0; offset-distance: 100%; }
+      0%, 6% { opacity: 0; offset-distance: 0%; }
+      10% { opacity: 0.9; }
+      38% { opacity: 0; offset-distance: 100%; }
       100% { offset-distance: 100%; opacity: 0; }
     }
 
     @keyframes disneyStar {
-      0% { 
-        offset-distance: 0%; 
+      0% {
+        offset-distance: 0%;
         opacity: 0;
-        transform: scale(0.2);
+        transform: scale(0.1);
       }
-      12% { /* Gentle entrance */
+      8% {
         opacity: 1;
-        transform: scale(1.5);
+        transform: scale(2);
       }
-      25% { /* Peak brilliance */
+      20% {
         opacity: 1;
-        transform: scale(1.2);
-        filter: brightness(1.5);
+        transform: scale(1.3);
+        filter: brightness(2);
       }
-      40% { /* Fade out gracefully */
-        offset-distance: 80%;
+      38% {
+        offset-distance: 100%;
         opacity: 0;
-        transform: scale(0.5);
+        transform: scale(0.3);
       }
       100% {
         offset-distance: 100%;
@@ -491,6 +490,82 @@
 
     .hero-cta a:last-child:hover {
       color: rgba(255,255,255,0.85) !important;
+    }
+
+    /* === EURION CTA === */
+    .eurion-wrap {
+      width: 100%;
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      border: 1.5px solid rgba(0,255,102,0.3);
+      animation: fadeUp 0.7s ease 0.35s both, eurionBorderPulse 3s ease-in-out infinite;
+    }
+    .eurion-wrap img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+      max-height: 220px;
+    }
+    .eurion-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(0,15,5,0.1) 0%, rgba(0,15,5,0.5) 100%);
+    }
+    .eurion-ring {
+      position: absolute;
+      inset: -2px;
+      border-radius: 18px;
+      border: 1.5px solid rgba(0,255,102,0.2);
+      z-index: 20;
+      pointer-events: none;
+      animation: eurionRingPulse 3s ease-in-out infinite;
+    }
+    .eurion-scan {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      border-radius: 16px;
+      z-index: 6;
+      pointer-events: none;
+    }
+    .eurion-scan::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(0,255,102,0.8), rgba(255,23,68,0.4), transparent);
+      box-shadow: 0 0 12px rgba(0,255,102,0.6), 0 0 24px rgba(0,255,102,0.3);
+      animation: eurionScanLine 4s linear infinite;
+    }
+    @keyframes eurionBorderPulse {
+      0%, 100% {
+        border-color: rgba(0,255,102,0.4);
+        box-shadow: 0 0 20px rgba(0,255,102,0.25), 0 0 40px rgba(0,255,102,0.1), 0 20px 60px rgba(0,0,0,0.5);
+      }
+      40% {
+        border-color: rgba(255,23,68,0.5);
+        box-shadow: 0 0 20px rgba(255,23,68,0.3), 0 0 50px rgba(255,23,68,0.15), 0 20px 60px rgba(0,0,0,0.5);
+      }
+      70% {
+        border-color: rgba(0,255,102,0.3);
+        box-shadow: 0 0 30px rgba(0,255,102,0.2), 0 0 60px rgba(0,255,102,0.08), 0 20px 60px rgba(0,0,0,0.5);
+      }
+    }
+    @keyframes eurionRingPulse {
+      0%, 100% { border-color: rgba(0,255,102,0.15); }
+      40% { border-color: rgba(255,23,68,0.2); }
+      70% { border-color: rgba(0,255,102,0.1); }
+    }
+    @keyframes eurionScanLine {
+      0% { top: -4px; opacity: 0; }
+      5% { opacity: 1; }
+      95% { opacity: 0.8; }
+      100% { top: 100%; opacity: 0; }
+    }
+    .eurion-link:hover {
+      color: rgba(0,255,102,0.95) !important;
     }
 
     svg { display: block; }
@@ -641,6 +716,19 @@
       </a>
       <a href="https://franceintel.fr" target="_blank" rel="noopener" style="display: block; text-align: center; margin-top: 14px; text-decoration: none; font-family: 'Bebas Neue', sans-serif; font-size: 15px; letter-spacing: 2.5px; color: rgba(255,255,255,0.5); transition: color 0.2s;">
         Découvrir franceintel.fr →
+      </a>
+    </div>
+
+    <!-- Eurion CTA -->
+    <div class="eurion-cta" style="margin-top: 24px; position: relative;">
+      <a href="https://FranceIntel.fr/business" target="_blank" rel="noopener" class="eurion-wrap" style="margin-bottom: 0; display: block; text-decoration: none; position: relative;">
+        <div class="eurion-ring"></div>
+        <img src="eurion.jpg" alt="Eurion — Plateforme de trading" />
+        <div class="eurion-overlay"></div>
+        <div class="eurion-scan"></div>
+      </a>
+      <a href="https://FranceIntel.fr/business" target="_blank" rel="noopener" style="display: block; text-align: center; margin-top: 14px; text-decoration: none; font-family: 'Bebas Neue', sans-serif; font-size: 15px; letter-spacing: 2.5px; color: rgba(0,255,102,0.6); transition: color 0.2s;" class="eurion-link">
+        Découvrir Eurion →
       </a>
     </div>
 
